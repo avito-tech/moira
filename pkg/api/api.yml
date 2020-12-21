@@ -1,0 +1,30 @@
+redis:
+  host: localhost
+  port: "6379"
+  dbid: 0
+log:
+  log_file: stdout
+  log_level: debug
+rsyslog:
+  enabled: false
+  host: "rsyslog"
+  port: 514
+  level: "info"
+  slots: 8
+  fallback: "stdout"
+  debug: true
+statsd:
+  enabled: true
+  host: "aggregator01"
+  port: 8126
+  prefix: "complex.dev.resources.monitoring.moira.api"
+api:
+  listen: ":8081"
+  enable_cors: false
+  web_config_path: "/etc/moira/web.json"
+  sentry:
+    dsn: ""
+    enabled: true
+netbox:
+  enabled: true
+  url: "https://netbox"

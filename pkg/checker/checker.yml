@@ -1,0 +1,32 @@
+redis:
+  host: localhost
+  port: "6379"
+  dbid: 0
+log:
+  log_file: stdout
+  log_level: debug
+rsyslog:
+  enabled: false
+  host: "rsyslog"
+  port: 514
+  level: "info"
+  slots: 8
+  fallback: "stdout"
+  debug: true
+statsd:
+  enabled: true
+  host: "aggregator01"
+  port: 8126
+  prefix: "complex.dev.resources.monitoring.moira.checker"
+checker:
+  check_interval: 10s
+  nodata_check_interval: 60s
+  tags_check_interval: 30s
+  metrics_ttl: 3h
+  stop_checking_interval: 60s
+  sentry:
+    dsn: ""
+    enabled: true
+netbox:
+  enabled: true
+  url: "https://netbox"

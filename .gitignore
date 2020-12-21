@@ -1,0 +1,14 @@
+log
+build/
+
+.DS_Store
+*.coverprofile
+/vendor/*/
+
+.vscode/
+.idea/
+*.exe*
+coverage.*
+private/
+__pycache__
+
