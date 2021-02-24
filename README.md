@@ -24,10 +24,3 @@ Moira was originally developed and is supported by [SKB Kontur][kontur], a B2G c
 [gitter]: https://gitter.im/moira-alert/moira
 [kontur]: https://kontur.ru/eng/about
 [graphite]: http://graphite.readthedocs.org
-
-## Build docker images
-SSH key must be passed into docker image. In order to do that:
-1. Set DOCKER_BUILDKIT env to 1.
-2. Add `--ssh default` to `docker build` command. Make sure you have ssh keys set up for accessing stash.msk.avito.ru.
-
-Example: `DOCKER_BUILDKIT=1 docker build --no-cache --ssh default -t moira/api2 -f Dockerfile.api .`

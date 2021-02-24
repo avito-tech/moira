@@ -29,12 +29,12 @@ func NewDecoder(db moira.Database, logger moira.Logger, dutyAPIToken, dutyUrl st
 	result.dutyAPIToken, err = moira.GetFileContent(dutyAPIToken)
 	result.dutyAPIToken = strings.TrimSpace(result.dutyAPIToken)
 	if err != nil || result.dutyAPIToken == "" {
-		logger.WarnF("Failed to read duty.avito.ru token from path \"%s\", or it is empty. Error is %v.", dutyAPIToken, err)
+		logger.WarnF("Failed to read duty.cc token from path \"%s\", or it is empty. Error is %v.", dutyAPIToken, err)
 	}
 
 	result.dutyUrl = dutyUrl
 	if result.dutyUrl == "" {
-		result.dutyUrl = "https://duty.avito.ru" // default
+		result.dutyUrl = "https://duty.cc" // default
 	}
 
 	return result

@@ -81,7 +81,7 @@ func NewNotifier(database moira.Database, config Config, metrics *metrics.Notifi
 	}
 }
 
-// if duty.avito.ru returns an empty response but no error,
+// if duty.cc returns an empty response but no error,
 // retry `maxDutyTries` times, then give up
 const maxDutyTries = 3
 

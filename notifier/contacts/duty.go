@@ -78,7 +78,7 @@ func (decoder *Decoder) requestDutyApi(service string) ([]moira.DutyItem, error)
 		"body":   string(respBody),
 	})
 
-	// duty.avito.ru returns a 0-byte JSON if there's nobody on duty
+	// duty.cc
 	if len(respBody) == 0 {
 		return nil, nil
 	}
