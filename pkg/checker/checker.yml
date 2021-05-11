@@ -1,5 +1,5 @@
 redis:
-  host: localhost
+  host: redis
   port: "6379"
   dbid: 0
 log:
@@ -14,7 +14,7 @@ rsyslog:
   fallback: "stdout"
   debug: true
 statsd:
-  enabled: true
+  enabled: false
   host: "aggregator01"
   port: 8126
   prefix: "complex.dev.resources.monitoring.moira.checker"

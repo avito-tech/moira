@@ -1,0 +1,92 @@
+version: "3.7"
+
+services:
+  redis:
+    image: redis:alpine
+    sysctls:
+      net.core.somaxconn: 1024
+    ports:
+      - "6379:6379"
+
+  neo4j:
+    image: neo4j:4.2
+    ports:
+      - "7474:7474"
+      - "7473:7473"
+      - "7687:7687"
+    expose:
+      - 7474
+    environment:
+      - NEO4J_AUTH=none
+    volumes:
+      - "./output/neo4j/data:/data"
+      - "./output/neo4j/out:/var/log"
+      - "./output/neo4j/logs:/logs"
+      - "./mount/neo4j/cmd.sh:/neo4j-cmd.sh:ro"
+    command: [ "bash", "-c", "/neo4j-cmd.sh >/logs/neo4j_stdout.log 2>/logs/neo4j_stderr.log" ]
+
+  rsyslog:
+    build:
+      context: ..
+      dockerfile: ./docker/rsyslog.Dockerfile
+    ports:
+      - "514:514"
+    volumes:
+      - "./mount/rsyslog/common.conf:/etc/rsyslog.conf"
+      - "./mount/rsyslog/part.conf:/etc/rsyslog.d/rsyslog-part.conf"
+    restart: always
+
+  api:
+    build:
+      context: ..
+      dockerfile: ./docker/api.Dockerfile
+    depends_on:
+      - redis
+      - rsyslog
+      - neo4j
+    links:
+      - redis
+      - rsyslog
+    volumes:
+      - "../pkg/api/api.yml:/etc/moira/api.yml"
+
+  notifier:
+    build:
+      context: ..
+      dockerfile: ./docker/notifier.Dockerfile
+    depends_on:
+      - redis
+      - rsyslog
+    links:
+      - redis
+      - rsyslog
+    volumes:
+      - "../pkg/notifier/notifier.yml:/etc/moira/notifier.yml"
+
+  checker:
+    build:
+      context: ..
+      dockerfile: ./docker/checker.Dockerfile
+    depends_on:
+      - redis
+      - rsyslog
+      - neo4j
+    links:
+      - redis
+      - rsyslog
+    volumes:
+      - "../pkg/checker/checker.yml:/etc/moira/checker.yml"
+
+  web:
+    build:
+      context: ../web2.0
+
+  balancer:
+    image: nginx:alpine
+    ports:
+      - "8080:8083"
+    depends_on:
+      - web
+      - api
+    volumes:
+      - "./mount/nginx/moira.conf:/etc/nginx/conf.d/moira.conf"
