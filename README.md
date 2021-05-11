@@ -11,6 +11,9 @@ Documentation for the entire Moira project is available on [Read the Docs][readt
 
 If you have any questions, you can ask us on [Gitter][gitter].
 
+## Local docker-compose development
+[Read](./docker/dev.readme.md). Do not forget to properly place moira-web2.0 repo!
+
 ## Thanks
 
 ![SKB Kontur](https://kontur.ru/theme/ver-1652188951/common/images/logo_english.png)
